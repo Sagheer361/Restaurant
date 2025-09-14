@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: #fff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 60px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            height: 60px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            flex: 1;
+            justify-content: space-evenly;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            height: 36px;
+            justify-content: center;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .hero-section {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 60px;
+        }
+
+        .hero-left {
+            flex: 1;
+            background: linear-gradient(to right,#fef3b1,#f7d5e2);
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero-text {
+            color: #636e72;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease;
+            align-self: flex-start;
+            width: clamp(200px, 22vw, 250px);
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-right {
+            flex: 1;
+            background-image: url('burger.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 500px;
+        }
+
+        .gallery-section {
+            background: linear-gradient(to right, #fef3b1, #ffb6ebf2);
+            background: linear-gradient(to right, #fef3b1 0 -200%, #ffb6ebf2  100%);
+            padding: 80px 0;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: clamp(20px, 4vw, 60px);
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            flex: 1 1 0;
+            grid-auto-rows: 220px;
+            align-items: stretch;
+            min-width: 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-row: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 160px;
+            }
+            .gallery-item:nth-child(2) {
+                grid-row: auto;
+            }
+        }
+
+        .gallery-cta {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: #2d3436;
+            flex: 0 0 480px;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            max-height: 420px;
+            overflow: auto;
+            box-shadow: 0 6px 32px rgba(255, 107, 107, 0.12);
+            padding: 48px 36px;
+            
+        }
+            
+        .gallery-cta-small {
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .gallery-cta-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gallery-cta-button {
+            background: transparent;
+            color: black;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+
+        .gallery-cta .gallery-cta-button {
+            color: black !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        
+
+        .gallery-cta-button::after {
+            content: '➔';
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-left {
+                padding: 50px 30px;
+            }
+            .gallery-container {
+                gap: 28px;
+                padding: 0 16px;
+            }
+            .gallery-cta {
+                flex: 0 0 380px;
+                max-width: 380px;
+                padding: 30px;
+            }
+            .gallery-grid {
+                grid-auto-rows: 160px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: 54px;
+            }
+            .nav-container {
+                height: 54px;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100vw;
+                background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+                flex-direction: column;
+                padding: 20px 0;
+                gap: 20px;
+                align-items: center;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-container {
+                position: relative;
+            }
+            .hero-section {
+                flex-direction: column;
+                padding-top: 54px;
+                min-height: unset;
+            }
+            .hero-left {
+                padding: 30px 10px;
+            }
+            .hero-title {
+                font-size: 28px;
+            }
+            .hero-right {
+                min-height: 200px;
+            }
+            .gallery-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 8px;
+            }
+            .gallery-cta {
+                order: -1;
+                width: 100%;
+                max-width: none;
+                align-items: stretch;
+                flex: none;
+                align-self: auto;
+                max-height: none;
+                padding: 18px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 160px;
+            }
+            .gallery-item,
+            .gallery-item:nth-child(2) {
+                grid-row: auto;
+                aspect-ratio: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 20px;
+            }
+            .gallery-cta-title {
+                font-size: 22px;
+            }
+            .gallery-cta {
+                padding: 18px;
+            }
+            .gallery-grid {
+                grid-auto-rows: 110px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#order">Order</a></li>
+                <li><a href="#food">Food</a></li>
+                <li><a href="#restaurant">Restaurant</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><img src="menu-bar.png" alt=""></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section" id="home">
+        <div class="hero-left">
+            <h1 class="hero-title">Lorem Ipsum</h1>
+            <p class="hero-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus 
+                id est vitae dolor rhoncus tristique. Maecenas metus quam, 
+                rhoncus euismod lorem in, sollicitudin viverra eros. Donec 
+                dictum luctus quam ut tristique. Curabitur nec faucibus purus. 
+                Quisque congue sem nec justo mollis, in tincidunt erat pretium. 
+                Sed pulvinar, massa ac porta viverra.
+            </p>
+            <button class="cta-button">Click Me</button>
+        </div>
+        <div class="hero-right"></div>
+    </section>
+
+    <section class="gallery-section" id="food">
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="stage.jpg" alt="Stage"></div>
+                <div class="gallery-item"><img src="pasta.jpg" alt="Pasta"></div>
+                <div class="gallery-item"><img src="chair.jpg" alt="Chair"></div>
+            </div>
+            <div class="gallery-cta">
+                <div class="gallery-cta-small">LOREM IPSUM</div>
+                <h2 class="gallery-cta-title">Lorem Ipsum Set Ademir</h2>
+                <button class="gallery-cta-button" style="color: black;">Click</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
